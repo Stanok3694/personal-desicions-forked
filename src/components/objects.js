@@ -3,6 +3,10 @@ import React, { Component } from "react";
 class Objects extends Component {
     constructor(props){
         super(props);
+
+        this.state = {
+
+        };
     }
 
     render() {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 class Workers extends Component {
     constructor(props){
@@ -19,7 +20,6 @@ class Workers extends Component {
     getData = () => {
         axios.get('http://localhost:3001/workers/getAllWorkers')
             .then(response => {
-                console.log(response);
                 this.setState({ workers: [...response.data], isLoading: false, })
             })
             .catch(e => {
@@ -39,19 +39,42 @@ class Workers extends Component {
             return(
                 <div>
                     <h2>Рабочие</h2>
-                    <p>Список рабочих</p>
-                    {
-                        this.state.workers.map((w, index) => {
-                            return (
-                                <div id={index}>
-                                    <p>{w.id}</p>
-                                    <p>{w.firstName}</p>
-                                    <p>{w.secondName}</p>
-                                    <p>{w.lastName}</p>
-                                </div>
-                            )
-                        })
-                    }
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>{'ФИО'}</th>
+                                <th>{'Возраст'}</th>
+                                <th>{'Район'}</th>
+                                <th>{'Должность'}</th>
+                                <th>{'Навыки'}</th>
+                                {/* <th>{'Статус'}</th> */}
+                                <th>{'Телефон'}</th>
+                                {/* <th>{'Примечания'}</th> */}
+                            </tr>
+                            {
+                                this.state.workers.map((w, index) => {
+                                    const route = `/worker/${w.id}`;
+
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                <Link to = {route}>
+                                                    {`${w.lastName} ${w.firstName} ${w.secondName}`}
+                                                </Link>
+                                            </td>
+                                            <td>{w.age}</td>
+                                            <td>{w.district}</td>
+                                            <td>{w.position}</td>
+                                            <td>{w.skills.toString()}</td>
+                                            {/* <td>{'Статус'}</td> */}
+                                            <td>{w.phoneNumber}</td>
+                                            {/* <td>{w.notes}</td> */}
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
                 </div>
             );
         }
