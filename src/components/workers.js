@@ -18,14 +18,14 @@ class Workers extends Component {
 
     getData = () => {
         axios.get('http://localhost:3001/workers/getAllWorkers')
-        .then(response => {
-            console.log(response);
-            this.setState({ workers: response, isLoading: false, })
-        })
-        .catch(e => {
-            console.log(e);
-            return;
-        })
+            .then(response => {
+                console.log(response);
+                this.setState({ workers: [...response.data], isLoading: false, })
+            })
+            .catch(e => {
+                console.log(e);
+                return;
+            });
     }
 
     render() {
@@ -40,7 +40,18 @@ class Workers extends Component {
                 <div>
                     <h2>Рабочие</h2>
                     <p>Список рабочих</p>
-                    <p>{this.state.workers}</p>
+                    {
+                        this.state.workers.map((w, index) => {
+                            return (
+                                <div id={index}>
+                                    <p>{w.id}</p>
+                                    <p>{w.firstName}</p>
+                                    <p>{w.secondName}</p>
+                                    <p>{w.lastName}</p>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             );
         }
