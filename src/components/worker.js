@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import WorkerTable from "./workerTable";
 class Worker extends Component {
     constructor(props) {
         super(props);
@@ -42,34 +43,7 @@ class Worker extends Component {
         } else {
             return(
                 <div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Паспортные данные</th>
-                            </tr>
-                            <tr>
-                                <td>{`${this.state.worker.lastName} ${this.state.worker.firstName} ${this.state.worker.secondName}`}</td>
-                            </tr>
-                            <tr>
-                                <td>{this.state.worker.gender}</td>
-                            </tr>
-                            <tr>
-                                <td>{this.state.worker.dateOfBirth}</td>
-                            </tr>
-                            <tr>
-                                <td>{this.state.worker.passportTable}</td>
-                            </tr>
-                            <tr>
-                                <td>{this.state.worker.codeOfPassportTable}</td>
-                            </tr>
-                            <tr>
-                                <td>{this.state.worker.passportStartDate}</td>
-                            </tr>
-                            <tr>
-                                <td>{this.state.worker.relationship}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <WorkerTable worker = {this.state.worker} />
 
                     <table>
                         <tbody>
