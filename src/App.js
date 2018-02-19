@@ -1,21 +1,60 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Menu, } from "semantic-ui-react";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+import { Dashboard, Workers, Objects, Home  } from "./components";
 
-export default App;
+const routes = [
+	{
+		path: "/",
+		exact: true,
+		main: Home,
+	},
+	{
+		path: "/dashboard",
+		main: Dashboard,
+	},
+	{
+		path: "/workers",
+		main: Workers,
+	},
+	{
+		path: "/objects",
+		main: Objects,
+	}
+];
+
+const SidebarExample = () => (
+	<Router>
+		<div>
+			<Menu>
+				<Menu.Item as={Link} to="/">
+					Главная
+				</Menu.Item>
+				<Menu.Item as = { Link } to = "/dashboard">
+					Смены
+				</Menu.Item>
+				<Menu.Item as = { Link } to = "/workers">
+					Рабочие
+				</Menu.Item>
+				<Menu.Item as = { Link } to = "/objects">
+					Объекты
+				</Menu.Item>
+			</Menu>
+			<div style={{ flex: 1, padding: "10px" }}>
+				{
+					routes.map((route, index) => (
+						<Route
+							key={index}
+							path={route.path}
+							exact={route.exact}
+							component={route.main}
+						/>
+					))
+				}
+			</div>
+		</div>
+	</Router>
+);
+
+export default SidebarExample;
