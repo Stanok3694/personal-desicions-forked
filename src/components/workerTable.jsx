@@ -16,24 +16,28 @@ const WorkerTable = (props) => {
                 <tr>
                     <td>{`${lastName} ${firstName} ${secondName}`}</td>
                 </tr>
-                <tr>
-                    <td>{gender}</td>
-                </tr>
-                <tr>
-                    <td>{dateOfBirth}</td>
-                </tr>
-                <tr>
-                    <td>{passportTable}</td>
-                </tr>
-                <tr>
-                    <td>{codeOfPassportTable}</td>
-                </tr>
-                <tr>
-                    <td>{passportStartDate}</td>
-                </tr>
-                <tr>
-                    <td>{relationship}</td>
-                </tr>
+                {
+                    Object.keys(props.worker).map(key => {
+                        if (
+                            key === 'lastName' 
+                            || key === 'firstName' 
+                            || key === 'secondName' 
+                            || key === 'workerId' 
+                            || key === '__v' 
+                            || key === '_id'
+                            || key === 'works'
+                            || key === 'payments'
+                        ) {
+                            return;
+                        } else {
+                            return (
+                                <tr>
+                                    <td>{props.worker[key]}</td>
+                                </tr>
+                            );
+                        }
+                    })
+                }
             </tbody>
         </table>
     );
