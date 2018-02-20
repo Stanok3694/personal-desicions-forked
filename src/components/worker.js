@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import WorkerTable from "./workerTable";
+import WorkerWorks from "./workerWorks";
+import WorkerPayments from "./workerPayments";
+
 class Worker extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +14,6 @@ class Worker extends Component {
             worker: {},
         }
     }
-
     
     componentDidMount() {
         this.getData();
@@ -44,40 +46,8 @@ class Worker extends Component {
             return(
                 <div>
                     <WorkerTable worker = {this.state.worker} />
-
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Работы</th>
-                            </tr>
-                            {
-                                this.state.worker.works.map(w => {
-                                    return (
-                                        <tr>
-                                            <td>{w}</td>
-                                        </tr>
-                                    );
-                                })
-                            }
-                        </tbody>
-                    </table>
-
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Платежи</th>
-                            </tr>
-                            {
-                                this.state.worker.payments.map(p => {
-                                    return (
-                                        <tr>
-                                            <td>{p}</td>
-                                        </tr>
-                                    );
-                                })
-                            }
-                        </tbody>
-                    </table>
+                    <WorkerWorks works = {this.state.worker.works} />
+                    <WorkerPayments payments = {this.state.worker.payments} />
                 </div>
             );
         }
