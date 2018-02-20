@@ -2,9 +2,7 @@ import React from "react";
 
 const WorkerTable = (props) => {
     const { 
-        lastName, firstName, secondName, gender, 
-        dateOfBirth, passportTable, passportStartDate, 
-        codeOfPassportTable, relationship 
+        lastName, firstName, secondName, 
     } = props.worker;
     
     return (
@@ -28,7 +26,7 @@ const WorkerTable = (props) => {
                             || key === 'works'
                             || key === 'payments'
                         ) {
-                            return;
+                            return null;
                         } else {
                             return (
                                 <tr>
