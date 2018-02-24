@@ -1,10 +1,6 @@
 import React from "react";
 
 const WorkerTable = (props) => {
-    const { 
-        lastName, firstName, secondName, 
-    } = props.worker;
-    
     return (
         <table>
             <tbody>
@@ -12,17 +8,15 @@ const WorkerTable = (props) => {
                     <th>Паспортные данные</th>
                 </tr>
                 <tr>
-                    <td>{`${lastName} ${firstName} ${secondName}`}</td>
+                    <td>{props.worker.names}</td>
                 </tr>
                 {
                     Object.keys(props.worker).map(key => {
                         if (
-                            key === 'lastName' 
-                            || key === 'firstName' 
-                            || key === 'secondName' 
+                            key === 'names' 
                             || key === 'workerId' 
                             || key === '__v' 
-                            || key === '_id'
+                            // || key === '_id'
                             || key === 'works'
                             || key === 'payments'
                         ) {
