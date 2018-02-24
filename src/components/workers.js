@@ -63,14 +63,16 @@ class Workers extends Component {
                                 <th>{'Возраст'}</th>
                                 <th>{'Район'}</th>
                                 <th>{'Должность'}</th>
-                                {/* <th>{'Статус'}</th> */}
+                                <th>{'Статус'}</th>
                                 <th>{'Телефон'}</th>
                                 <th>{'Количество смен'}</th>
+                                <th>{'Примечания'}</th>
                             </tr>
                             {
                                 this.state.workers.map((w, index) => {
                                     const route = `/worker/${w.id}`;
                                     const position = this.makePositionString(w.position);
+                                    const status = w.inShift ? 'В смене' : 'Не в смене';
 
                                     return (
                                         <tr key={index}>
@@ -82,9 +84,10 @@ class Workers extends Component {
                                             <td>{w.age}</td>
                                             <td>{w.district}</td>
                                             <td>{position}</td>
-                                            {/* <td>{'Статус'}</td> */}
+                                            <td>{status}</td>
                                             <td>{w.phoneNumber}</td>
                                             <td>{w.shifts}</td>
+                                            <td>{w.notes}</td>
                                         </tr>
                                     )
                                 })
