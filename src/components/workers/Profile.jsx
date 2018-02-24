@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import WorkerTable from "./workerTable";
-import WorkerWorks from "./workerWorks";
-import WorkerPayments from "./workerPayments";
+import ProfileData from "./ProfileData";
+import Works from "./Works";
+import Payments from "./Payments";
 
-class Worker extends Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
 
@@ -45,13 +45,13 @@ class Worker extends Component {
         } else {
             return(
                 <div>
-                    <WorkerTable worker = {this.state.worker} />
-                    <WorkerWorks works = {this.state.worker.works} />
-                    <WorkerPayments payments = {this.state.worker.payments} />
+                    <ProfileData worker = {this.state.worker} />
+                    <Works works = {this.state.worker.works} />
+                    <Payments payments = {this.state.worker.payments} />
                 </div>
             );
         }
     }
 }
 
-export default Worker;
+export default Profile;

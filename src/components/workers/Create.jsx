@@ -60,34 +60,34 @@ class CreateWorker extends Component {
 
         // SO: here will be API Call for create worker:
         axios.post('http://localhost:3001/workers/createWorker', workerData)
-        .then(response => {
-            console.log(`success ${response}`)
-        }).catch(e => {
-            console.log(e);
-            return;
-        });
+            .then(response => {
+                console.log(`success ${response}`)
+            }).catch(e => {
+                console.log(e);
+                return;
+            });
 
         console.log(workerData);
-        
+
         event.preventDefault();
     }
 
     render() {
-        return(
+        return (
             <div>
-                <form onSubmit = {this.handleSubmit}>
-                {
-                    CreateWorker.INPUTS.map((i, index) => {
-                        return (
-                            <div key = {index}>
-                                <p>{i}</p>
-                                <input type = "Text" name = {i} value = {this.state[i]} onChange = {this.handleChange}/>
-                            </div>
-                        );
-                    })
-                }
-                <br />
-                <input type = "submit" value = "Создать"/>
+                <form onSubmit={this.handleSubmit}>
+                    {
+                        CreateWorker.INPUTS.map((i, index) => {
+                            return (
+                                <div key={index}>
+                                    <p>{i}</p>
+                                    <input type="Text" name={i} value={this.state[i]} onChange={this.handleChange} />
+                                </div>
+                            );
+                        })
+                    }
+                    <br />
+                    <input type="submit" value="Создать" />
                 </form>
             </div>
         );

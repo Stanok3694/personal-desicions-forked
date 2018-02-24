@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
+import { Table, } from "react-bootstrap";
+
 import axios from 'axios';
+
+import "./Workers.css";
 
 class Workers extends Component {
     constructor(props) {
@@ -37,7 +40,7 @@ class Workers extends Component {
             });
     }
 
-    makePositionString = (postionArray) => {
+    makeStringField = (postionArray) => {
         const strFromArr = postionArray.toString();
         const commaIdx = strFromArr.indexOf(',');
         const withComma = strFromArr.slice(0, commaIdx + 1);
@@ -56,17 +59,16 @@ class Workers extends Component {
         } else if (typeof this.state.workers !== 'string') {
             return (
                 <div>
-                    <h2>Рабочие</h2>
-                    <Table striped bordered condensed hover>
+                    <h1 className = "WorkersHeader">Рабочие</h1>
+                    <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th>{'ФИО'}</th>
                                 <th>{'Возраст'}</th>
                                 <th>{'Район'}</th>
-                                <th>{'Должность'}</th>
+                                <th>{'Специальность'}</th>
                                 <th>{'Статус'}</th>
                                 <th>{'Телефон'}</th>
-                                <th>{'Количество смен'}</th>
                                 <th>{'Примечания'}</th>
                             </tr>
                         </thead>
@@ -74,7 +76,8 @@ class Workers extends Component {
                             {
                                 this.state.workers.map((w, index) => {
                                     const route = `/worker/${w.id}`;
-                                    const position = this.makePositionString(w.position);
+                                    // SO: move into separate file?
+                                    const specialty = this.makeStringField(w.position);
                                     const status = w.inShift ? 'В смене' : 'Не в смене';
 
                                     return (
@@ -86,10 +89,9 @@ class Workers extends Component {
                                             </td>
                                             <td>{w.age}</td>
                                             <td>{w.district}</td>
-                                            <td>{position}</td>
+                                            <td>{specialty}</td>
                                             <td>{status}</td>
                                             <td>{w.phoneNumber}</td>
-                                            <td>{w.shifts}</td>
                                             <td>{w.notes}</td>
                                         </tr>
                                     )
