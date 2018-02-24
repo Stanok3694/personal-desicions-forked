@@ -3,14 +3,14 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 
 class Workers extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
             isLoading: true,
             loadingString: 'Loading...',
             workers: [],
-        }
+        };
     }
 
     componentDidMount() {
@@ -20,12 +20,29 @@ class Workers extends Component {
     getData = () => {
         axios.get('http://localhost:3001/workers/getAllWorkers')
             .then(response => {
-                this.setState({ workers: [...response.data], isLoading: false, })
+                let workers = null;
+
+                if (typeof response.data === "string") {
+                    workers = response.data;
+                } else {
+                    workers = [...response.data];
+                }
+
+                this.setState({ workers, isLoading: false, })
             })
             .catch(e => {
                 console.log(e);
                 return;
             });
+    }
+
+    makePositionString = (postionArray) => {
+        const strFromArr = postionArray.toString();
+        const commaIdx = strFromArr.indexOf(',');
+        const withComma = strFromArr.slice(0, commaIdx + 1);
+        const afterComma = strFromArr.slice(commaIdx + 1);
+
+        return `${withComma} ${afterComma}`;
     }
 
     render() {
@@ -35,8 +52,8 @@ class Workers extends Component {
                     <p>{this.state.loadingString}</p>
                 </div>
             )
-        } else {
-            return(
+        } else if (typeof this.state.workers !== 'string') {
+            return (
                 <div>
                     <h2>Рабочие</h2>
                     <table>
@@ -46,35 +63,40 @@ class Workers extends Component {
                                 <th>{'Возраст'}</th>
                                 <th>{'Район'}</th>
                                 <th>{'Должность'}</th>
-                                <th>{'Навыки'}</th>
                                 {/* <th>{'Статус'}</th> */}
                                 <th>{'Телефон'}</th>
-                                {/* <th>{'Примечания'}</th> */}
+                                <th>{'Количество смен'}</th>
                             </tr>
                             {
                                 this.state.workers.map((w, index) => {
                                     const route = `/worker/${w.id}`;
+                                    const position = this.makePositionString(w.position);
 
                                     return (
                                         <tr key={index}>
                                             <td>
-                                                <Link to = {route}>
-                                                    {`${w.lastName} ${w.firstName} ${w.secondName}`}
+                                                <Link to={route}>
+                                                    {w.names}
                                                 </Link>
                                             </td>
                                             <td>{w.age}</td>
                                             <td>{w.district}</td>
-                                            <td>{w.position}</td>
-                                            <td>{w.skills.toString()}</td>
+                                            <td>{position}</td>
                                             {/* <td>{'Статус'}</td> */}
                                             <td>{w.phoneNumber}</td>
-                                            {/* <td>{w.notes}</td> */}
+                                            <td>{w.shifts}</td>
                                         </tr>
                                     )
                                 })
                             }
                         </tbody>
                     </table>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <p>{this.state.workers}</p>
                 </div>
             );
         }
