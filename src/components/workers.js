@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import axios from 'axios';
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
+import axios from 'axios';
 
 class Workers extends Component {
     constructor(props) {
@@ -56,8 +57,8 @@ class Workers extends Component {
             return (
                 <div>
                     <h2>Рабочие</h2>
-                    <table>
-                        <tbody>
+                    <Table striped bordered condensed hover>
+                        <thead>
                             <tr>
                                 <th>{'ФИО'}</th>
                                 <th>{'Возраст'}</th>
@@ -68,6 +69,8 @@ class Workers extends Component {
                                 <th>{'Количество смен'}</th>
                                 <th>{'Примечания'}</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             {
                                 this.state.workers.map((w, index) => {
                                     const route = `/worker/${w.id}`;
@@ -93,7 +96,7 @@ class Workers extends Component {
                                 })
                             }
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             );
         } else {
