@@ -15,11 +15,11 @@ const App = () => (
 				</Navbar.Brand>
 			</Navbar.Header>
 			<Nav>
-				<NavItem>
-					<Link to="/workers">Рабочие</Link> <br />
+				<NavItem href="/workers">
+					Рабочие
 				</NavItem>
-				<NavItem>
-					<Link to="/createWorker">Создать рабочего</Link>
+				<NavItem href = "/createWorker">
+					Создать рабочего
 				</NavItem>
 			</Nav>
 		</Navbar>
