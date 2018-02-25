@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormControl, ListGroup, ListGroupItem, Grid, Col, Row, Button } from "react-bootstrap";
+import { componentClass, FormControl, ListGroup, ListGroupItem, Grid, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
 class CreateWorker extends Component {
@@ -89,6 +89,7 @@ class CreateWorker extends Component {
                 position: this.state.position ? this.state.position.split(',') : null,
                 phoneNumber: this.state.phoneNumber,
                 notes: this.state.notes,
+                status: this.state.status,
             },
             passData: {
                 gender: this.state.gender,
@@ -143,15 +144,44 @@ class CreateWorker extends Component {
                                             );
                                         })
                                     }
+                                    <ListGroupItem>
+                                        <div>
+                                            <p>Примечания</p>
+                                            <FormControl
+                                                componentClass="Textarea"
+                                                name="notes"
+                                                value={this.state.notes}
+                                                onChange={this.handleChange}
+                                            />
+                                        </div>
+                                    </ListGroupItem>
+                                    <br />
+                                    <Button bsStyle="success" type="submit">Создать </Button>
                                 </ListGroup>
                             </Col>
                             <Col md={6}>
-                                blabla
+                                <ListGroup>
+                                    {
+                                        CreateWorker.PASS_DATA_INPUTS.map((i, index) => {
+                                            return (
+                                                <ListGroupItem key={index}>
+                                                    <div>
+                                                        <p>{i.value}</p>
+                                                        <FormControl
+                                                            type="Text"
+                                                            name={i.key}
+                                                            value={this.state[i.key]}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                    </div>
+                                                </ListGroupItem>
+                                            );
+                                        })
+                                    }
+                                </ListGroup>
                             </Col>
                         </Row>
                     </Grid>
-                    <br />
-                    <input type="submit" value="Создать" />
                 </form>
             </div>
         );
