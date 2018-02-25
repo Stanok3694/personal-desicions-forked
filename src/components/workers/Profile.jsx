@@ -1,14 +1,17 @@
 import React, { Component } from "react";
+import { Tabs, Tab, ButtonToolbar, Button } from "react-bootstrap";
+
 import axios from "axios";
 
-import { Tabs, Tab } from "react-bootstrap";
-import { BaseData, PassData, Payments, Shifts } from "./workerProfile";
+import { BaseData, PassData, Payments, Shifts, DeleteButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
+
+import './workerProfile/Profile.css';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             isLoading: true,
             worker: {},
@@ -40,6 +43,17 @@ class Profile extends Component {
         this.setState({ key: eventKey });
     }
 
+    handleDeleteClick = (cb) => {
+        const route = `http://localhost:3001/workers/deleteWorkerById?workerId=${this.props.match.params.workerId}`;
+        axios.delete(route).then(response => {
+            console.log(`Success: ${response}`);
+            cb();
+        }).catch(e => {
+            console.log(e);
+            return;
+        });
+    }
+
     render() {
         if (this.state.isLoading) {
             return  <WaitForResponse />
@@ -64,6 +78,13 @@ class Profile extends Component {
                             <Shifts works={this.state.worker.works} />
                         </Tab>
                     </Tabs>
+                    <br />
+                    <div className="ProfileControls">
+                        <ButtonToolbar>
+                            <Button bsStyle="primary" bsSize="small">Изменить</Button>
+                            <DeleteButton onClick = {this.handleDeleteClick}/>
+                        </ButtonToolbar>
+                    </div>
                 </div>
             );
         }
