@@ -1,24 +1,68 @@
 import React, { Component } from "react";
+import { FormControl, ListGroup, ListGroupItem, Grid, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
 class CreateWorker extends Component {
-    static INPUTS = [
-        "firstName",
-        "secondName",
-        "lastName",
-        "age",
-        "district",
-        "position",
-        "skills",
-        "phoneNumber",
-        "gender",
-        "dateOfBirth",
-        "passportTable",
-        "codeOfPassportTable",
-        "passportStartDate",
-        "relationship",
-        "works",
-        "payments",
+    static BASE_DATA_INPUTS = [
+        {
+            key: "names",
+            value: "ФИО"
+        },
+        {
+            key: "age",
+            value: "Возраст"
+        },
+        {
+            key: "district",
+            value: "Район"
+        },
+        {
+            key: "position",
+            value: "Специальность"
+        },
+        {
+            key: "status",
+            value: "Cтатус"
+        },
+        {
+            key: "phoneNumber",
+            value: "Телефон"
+        },
+    ];
+
+    static PASS_DATA_INPUTS = [
+        {
+            key: "gender",
+            value: "Пол"
+        },
+        {
+            key: "dateOfBirth",
+            value: "Дата рождения"
+        },
+        {
+            key: "birthPlace",
+            value: "Место рождения"
+        },
+        {
+            key: "serialNumber",
+            value: "Серия/Номер паспорта"
+        },
+        {
+            key: "passportTable",
+            value: "Место выдачи"
+        },
+        {
+            key: "passportStartDate",
+            value: "Дата выдачи"
+        },
+        {
+            key: "codeOfPassportTable",
+            value: "Код подразделения"
+        },
+        {
+            key: "address",
+            value: "Адрес регистрации"
+        }
     ];
 
     constructor(props) {
@@ -38,24 +82,26 @@ class CreateWorker extends Component {
 
     handleSubmit(event) {
         const workerData = {
-            firstName: this.state.firstName,
-            secondName: this.state.secondName,
-            lastName: this.state.lastName,
-            age: this.state.age,
-            district: this.state.district,
-            position: this.state.position,
-            skills: this.state.skills ? this.state.skills.split(',') : null,
-            phoneNumber: this.state.phoneNumber,
+            baseData: {
+                names: this.state.names,
+                age: this.state.age,
+                district: this.state.district,
+                position: this.state.position ? this.state.position.split(',') : null,
+                phoneNumber: this.state.phoneNumber,
+                notes: this.state.notes,
+            },
             passData: {
                 gender: this.state.gender,
                 dateOfBirth: this.state.dateOfBirth,
+                birthPlace: this.state.birthPlace,
+                serialNumber: this.state.serialNumber,
                 passportTable: this.state.passportTable,
                 codeOfPassportTable: this.state.codeOfPassportTable,
                 passportStartDate: this.state.passportStartDate,
-                relationship: this.state.relationship,
-                works: this.state.works ? this.state.works.split(',') : null,
-                payments: this.state.payments ? this.state.payments.split(',') : null,
-            }
+                address: this.state.address,
+            },
+            works: this.state.works ? this.state.works.split(',') : null,
+            payments: this.state.payments ? this.state.payments.split(',') : null,
         }
 
         // SO: here will be API Call for create worker:
@@ -76,16 +122,34 @@ class CreateWorker extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {
-                        CreateWorker.INPUTS.map((i, index) => {
-                            return (
-                                <div key={index}>
-                                    <p>{i}</p>
-                                    <input type="Text" name={i} value={this.state[i]} onChange={this.handleChange} />
-                                </div>
-                            );
-                        })
-                    }
+                    <Grid>
+                        <Row>
+                            <Col md={6}>
+                                <ListGroup>
+                                    {
+                                        CreateWorker.BASE_DATA_INPUTS.map((i, index) => {
+                                            return (
+                                                <ListGroupItem key={index}>
+                                                    <div>
+                                                        <p>{i.value}</p>
+                                                        <FormControl 
+                                                            type="Text" 
+                                                            name={i.key} 
+                                                            value={this.state[i.key]}
+                                                            onChange={this.handleChange} 
+                                                        />
+                                                    </div>
+                                                </ListGroupItem>
+                                            );
+                                        })
+                                    }
+                                </ListGroup>
+                            </Col>
+                            <Col md={6}>
+                                blabla
+                            </Col>
+                        </Row>
+                    </Grid>
                     <br />
                     <input type="submit" value="Создать" />
                 </form>
