@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import ProfileData from "./ProfileData";
-import Works from "./Works";
-import Payments from "./Payments";
+import { Tabs, Tab } from "react-bootstrap";
+import { BaseData, PassData, Payments, Shifts } from "./workerProfile";
+import { WaitForResponse } from "../service";
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-
+        
         this.state = {
             isLoading: true,
             worker: {},
+            key: "1",
         }
     }
-    
+
     componentDidMount() {
         this.getData();
     }
@@ -25,9 +26,9 @@ class Profile extends Component {
                 workerId: this.props.match.params.workerId,
             }
         ).then(response => {
-            this.setState({ 
-                worker: response.data, 
-                isLoading: false, 
+            this.setState({
+                worker: response.data,
+                isLoading: false,
             });
         }).catch(e => {
             console.log(e);
@@ -35,19 +36,34 @@ class Profile extends Component {
         });
     }
 
+    handleSelect = (eventKey) => {
+        this.setState({ key: eventKey });
+    }
+
     render() {
         if (this.state.isLoading) {
-            return(
-                <div>
-                    {'Loading...'}
-                </div>
-            );
+            return  <WaitForResponse />
         } else {
-            return(
+            return (
                 <div>
-                    <ProfileData worker = {this.state.worker} />
-                    <Works works = {this.state.worker.works} />
-                    <Payments payments = {this.state.worker.payments} />
+                    <Tabs 
+                        id="controlled-tab" 
+                        activeKey={this.state.key}
+                        onSelect={this.handleSelect}
+                    >
+                        <Tab eventKey="1" title = "Общие данные">
+                            <BaseData worker={this.state.worker} />
+                        </Tab>
+                        <Tab eventKey="2" title = "Паспортные данные">
+                            <PassData worker={this.state.worker} />
+                        </Tab>
+                        <Tab disabled eventKey="3" title = "Выплаты">
+                            <Payments payments={this.state.worker.payments} /> 
+                        </Tab>
+                        <Tab disabled eventKey="4" title = "Cмены">
+                            <Shifts works={this.state.worker.works} />
+                        </Tab>
+                    </Tabs>
                 </div>
             );
         }

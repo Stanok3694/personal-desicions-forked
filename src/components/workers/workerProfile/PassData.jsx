@@ -1,6 +1,6 @@
 import React from "react";
 
-const WorkerTable = (props) => {
+const PassData = (props) => {
     return (
         <table>
             <tbody>
@@ -35,4 +35,4 @@ const WorkerTable = (props) => {
     );
 }
 
-export default WorkerTable;
+export default PassData;

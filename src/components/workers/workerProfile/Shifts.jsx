@@ -1,6 +1,6 @@
 import React from "react";
 
-const WorkerWorks = (props) => {
+const Shifts = (props) => {
     return (
         <table>
             <tbody>
@@ -21,4 +21,4 @@ const WorkerWorks = (props) => {
     );
 }
 
-export default WorkerWorks;
+export default Shifts;

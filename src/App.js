@@ -15,7 +15,7 @@ const App = () => (
 				</Navbar.Brand>
 			</Navbar.Header>
 			<Nav>
-				<NavDropdown title = "Рабочие">
+				<NavDropdown title = "Рабочие" id = "1">
 					<NavItem href="/workers">
 						Список рабочих
 					</NavItem>
