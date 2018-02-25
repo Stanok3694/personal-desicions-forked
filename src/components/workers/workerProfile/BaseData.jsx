@@ -9,7 +9,7 @@ const BaseData = (props) => {
             <Table className="BaseData" bordered>
                 <tbody>
                     {
-                        props.worker.baseData.primaryBaseData.map((d, index) => {
+                        props.baseData.primaryBaseData.map((d, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{d.key}</td>
@@ -26,7 +26,7 @@ const BaseData = (props) => {
                         <Col md={8} mdOffset={-3}>
                             <ListGroup>
                                 <ListGroupItem header="Примечания">
-                                    {props.worker.baseData.notes}
+                                    {props.baseData.notes}
                                 </ListGroupItem>
                             </ListGroup>
                         </Col>

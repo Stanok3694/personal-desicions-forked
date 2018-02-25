@@ -56,25 +56,25 @@ class Profile extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return  <WaitForResponse />
+            return <WaitForResponse />
         } else {
             return (
                 <div>
-                    <Tabs 
-                        id="controlled-tab" 
+                    <Tabs
+                        id="controlled-tab"
                         activeKey={this.state.key}
                         onSelect={this.handleSelect}
                     >
-                        <Tab eventKey="1" title = "Общие данные">
-                            <BaseData worker={this.state.worker} />
+                        <Tab eventKey="1" title="Общие данные">
+                            <BaseData baseData={this.state.worker.baseData} />
                         </Tab>
-                        <Tab eventKey="2" title = "Паспортные данные">
-                            {/* <PassData worker={this.state.worker} /> */}
+                        <Tab eventKey="2" title="Паспортные данные">
+                            <PassData passData={this.state.worker.passData} />
                         </Tab>
-                        <Tab disabled eventKey="3" title = "Выплаты">
+                        <Tab disabled eventKey="3" title="Выплаты">
                             {/* <Payments payments={this.state.worker.payments} />  */}
                         </Tab>
-                        <Tab disabled eventKey="4" title = "Cмены">
+                        <Tab disabled eventKey="4" title="Cмены">
                             {/* <Shifts works={this.state.worker.works} /> */}
                         </Tab>
                     </Tabs>
@@ -82,7 +82,7 @@ class Profile extends Component {
                     <div className="ProfileControls">
                         <ButtonToolbar>
                             <Button bsStyle="primary" bsSize="small">Изменить</Button>
-                            <DeleteButton onClick = {this.handleDeleteClick}/>
+                            <DeleteButton onClick={this.handleDeleteClick} />
                         </ButtonToolbar>
                     </div>
                 </div>
