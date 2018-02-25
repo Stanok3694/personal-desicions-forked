@@ -69,13 +69,13 @@ class Profile extends Component {
                             <BaseData worker={this.state.worker} />
                         </Tab>
                         <Tab eventKey="2" title = "Паспортные данные">
-                            <PassData worker={this.state.worker} />
+                            {/* <PassData worker={this.state.worker} /> */}
                         </Tab>
                         <Tab disabled eventKey="3" title = "Выплаты">
-                            <Payments payments={this.state.worker.payments} /> 
+                            {/* <Payments payments={this.state.worker.payments} />  */}
                         </Tab>
                         <Tab disabled eventKey="4" title = "Cмены">
-                            <Shifts works={this.state.worker.works} />
+                            {/* <Shifts works={this.state.worker.works} /> */}
                         </Tab>
                     </Tabs>
                     <br />

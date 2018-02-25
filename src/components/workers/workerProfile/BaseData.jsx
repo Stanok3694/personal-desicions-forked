@@ -1,35 +1,39 @@
 import React from "react";
+import { Table, ListGroup, ListGroupItem, Grid, Col, Row } from "react-bootstrap";
+
+import "../workerProfile/Profile.css";
 
 const BaseData = (props) => {
     return (
-        <table>
-            <tbody>
-                <tr>
-                    <th>Общая информация</th>
-                </tr>
-                <tr>
-                    <td>{props.worker.names}</td>
-                </tr>
-                {
-                    Object.keys(props.worker).map(key => {
-                        if (
-                            key === '__v' 
-                            || key === '_id'
-                            || key === 'works'
-                            || key === 'payments'
-                        ) {
-                            return null;
-                        } else {
+        <div>
+            <Table className="BaseData" bordered>
+                <tbody>
+                    {
+                        props.worker.baseData.primaryBaseData.map((d, index) => {
                             return (
-                                <tr>
-                                    <td>{props.worker[key]}</td>
-                                </tr>
-                            );
-                        }
-                    })
-                }
-            </tbody>
-        </table>
+                                <tr key={index}>
+                                    <td>{d.key}</td>
+                                    <td>{d.value}</td>
+                                </tr>            
+                            )
+                        })
+                    }
+                </tbody>
+            </Table>
+            <div className = "Notes">
+                <Grid>
+                    <Row>
+                        <Col md={8} mdOffset={-3}>
+                            <ListGroup>
+                                <ListGroupItem header="Примечания">
+                                    {props.worker.baseData.notes}
+                                </ListGroupItem>
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
+        </div>
     );
 }
 
