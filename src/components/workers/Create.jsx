@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { componentClass, FormControl, ListGroup, ListGroupItem, Grid, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
+import { CustomActionButton } from "./workerProfile";
+
 class CreateWorker extends Component {
     static BASE_DATA_INPUTS = [
         {
@@ -80,7 +82,7 @@ class CreateWorker extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleSubmit(event) {
+    handleSubmit(cb) {
         const workerData = {
             baseData: {
                 names: this.state.names,
@@ -105,84 +107,83 @@ class CreateWorker extends Component {
             payments: this.state.payments ? this.state.payments.split(',') : null,
         }
 
-        // SO: here will be API Call for create worker:
         axios.post('http://localhost:3001/workers/createWorker', workerData)
             .then(response => {
-                console.log(`success ${response}`)
+                cb();
             }).catch(e => {
                 console.log(e);
                 return;
             });
-
-        console.log(workerData);
-
-        event.preventDefault();
     }
 
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <Grid>
-                        <Row>
-                            <Col md={6}>
-                                <ListGroup>
-                                    {
-                                        CreateWorker.BASE_DATA_INPUTS.map((i, index) => {
-                                            return (
-                                                <ListGroupItem key={index}>
-                                                    <div>
-                                                        <p>{i.value}</p>
-                                                        <FormControl 
-                                                            type="Text" 
-                                                            name={i.key} 
-                                                            value={this.state[i.key]}
-                                                            onChange={this.handleChange} 
-                                                        />
-                                                    </div>
-                                                </ListGroupItem>
-                                            );
-                                        })
-                                    }
-                                    <ListGroupItem>
-                                        <div>
-                                            <p>Примечания</p>
-                                            <FormControl
-                                                componentClass="Textarea"
-                                                name="notes"
-                                                value={this.state.notes}
-                                                onChange={this.handleChange}
-                                            />
-                                        </div>
-                                    </ListGroupItem>
-                                    <br />
-                                    <Button bsStyle="success" type="submit">Создать </Button>
-                                </ListGroup>
-                            </Col>
-                            <Col md={6}>
-                                <ListGroup>
-                                    {
-                                        CreateWorker.PASS_DATA_INPUTS.map((i, index) => {
-                                            return (
-                                                <ListGroupItem key={index}>
-                                                    <div>
-                                                        <p>{i.value}</p>
-                                                        <FormControl
-                                                            type="Text"
-                                                            name={i.key}
-                                                            value={this.state[i.key]}
-                                                            onChange={this.handleChange}
-                                                        />
-                                                    </div>
-                                                </ListGroupItem>
-                                            );
-                                        })
-                                    }
-                                </ListGroup>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </form>
+                <Grid>
+                    <Row>
+                        <Col md={6}>
+                            <ListGroup>
+                                {
+                                    CreateWorker.BASE_DATA_INPUTS.map((i, index) => {
+                                        return (
+                                            <ListGroupItem key={index}>
+                                                <div>
+                                                    <p>{i.value}</p>
+                                                    <FormControl
+                                                        type="Text"
+                                                        name={i.key}
+                                                        value={this.state[i.key]}
+                                                        onChange={this.handleChange}
+                                                    />
+                                                </div>
+                                            </ListGroupItem>
+                                        );
+                                    })
+                                }
+                                <ListGroupItem>
+                                    <div>
+                                        <p>Примечания</p>
+                                        <FormControl
+                                            componentClass="Textarea"
+                                            name="notes"
+                                            value={this.state.notes}
+                                            onChange={this.handleChange}
+                                        />
+                                    </div>
+                                </ListGroupItem>
+                                <br />
+                                <CustomActionButton
+                                    name="Создать"
+                                    bsStyle="success"
+                                    bsSize="small"
+                                    onClick={this.handleSubmit}
+                                    to="/workers"
+                                />
+                            </ListGroup>
+                        </Col>
+                        <Col md={6}>
+                            <ListGroup>
+                                {
+                                    CreateWorker.PASS_DATA_INPUTS.map((i, index) => {
+                                        return (
+                                            <ListGroupItem key={index}>
+                                                <div>
+                                                    <p>{i.value}</p>
+                                                    <FormControl
+                                                        type="Text"
+                                                        name={i.key}
+                                                        value={this.state[i.key]}
+                                                        onChange={this.handleChange}
+                                                    />
+                                                </div>
+                                            </ListGroupItem>
+                                        );
+                                    })
+                                }
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
         );
     }

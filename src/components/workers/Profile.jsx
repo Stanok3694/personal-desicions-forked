@@ -3,7 +3,7 @@ import { Tabs, Tab, ButtonToolbar, Button } from "react-bootstrap";
 
 import axios from "axios";
 
-import { BaseData, PassData, Payments, Shifts, DeleteButton } from "./workerProfile";
+import { BaseData, PassData, Payments, Shifts, CustomActionButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
 
 import './workerProfile/Profile.css';
@@ -82,7 +82,13 @@ class Profile extends Component {
                     <div className="ProfileControls">
                         <ButtonToolbar>
                             <Button bsStyle="primary" bsSize="small">Изменить</Button>
-                            <DeleteButton onClick={this.handleDeleteClick} />
+                            <CustomActionButton
+                                onClick={this.handleDeleteClick}
+                                name="Удалить"
+                                bsStyle="danger"
+                                bsSize="small"
+                                to="/workers"    
+                            />
                         </ButtonToolbar>
                     </div>
                 </div>

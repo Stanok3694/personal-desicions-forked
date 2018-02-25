@@ -2,23 +2,23 @@ import React from "react";
 import { withRouter } from "react-router";
 import { Button } from "react-bootstrap";
 
-const DeleteButton = ({...props, history }) => {
+const CusomActionButton = ({...props, history }) => {
     return (
         <Button
             onClick={
                 // SO: need to rework <- some kind of returned callback hell!
                 () => {
                     props.onClick(
-                        () => history.push("/workers")
+                        () => history.push(props.to)
                     );
                 }
             }
-            bsStyle="danger"
-            bsSize="small"
+            bsStyle={props.bsStyle}
+            bsSize={props.bsSize}
         >
-            Удалить
+            {props.name}
         </Button>
     );
 }
 
-export default withRouter(DeleteButton);
+export default withRouter(CusomActionButton);
