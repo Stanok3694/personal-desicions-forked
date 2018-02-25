@@ -81,7 +81,7 @@ class Profile extends Component {
                     <br />
                     <div className="ProfileControls">
                         <ButtonToolbar>
-                            <Button bsStyle="primary" bsSize="small">Изменить</Button>
+                            <Button disabled bsStyle="primary" bsSize="small">Изменить</Button>
                             <CustomActionButton
                                 onClick={this.handleDeleteClick}
                                 name="Удалить"
