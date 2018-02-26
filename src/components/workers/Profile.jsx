@@ -54,6 +54,10 @@ class Profile extends Component {
         });
     }
 
+    handleToChangeRedirectionClick = (cb) => {
+        cb();
+    }
+
     render() {
         if (this.state.isLoading) {
             return <WaitForResponse />
@@ -81,7 +85,14 @@ class Profile extends Component {
                     <br />
                     <div className="ProfileControls">
                         <ButtonToolbar>
-                            <Button disabled bsStyle="primary" bsSize="small">Изменить</Button>
+                            <CustomActionButton 
+                                onClick={this.handleToChangeRedirectionClick}
+                                name="Изменить"
+                                bsStyle="primary"
+                                bsSize="small"
+                                to={`/changeWorker/${this.props.match.params.workerId}`}
+                            />
+                            {/* <Button disabled bsStyle="primary" bsSize="small">Изменить</Button> */}
                             <CustomActionButton
                                 onClick={this.handleDeleteClick}
                                 name="Удалить"

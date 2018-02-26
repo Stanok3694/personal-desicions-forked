@@ -32,6 +32,7 @@ const App = () => (
 				<Route path="/workers" component={Workers} />
 				<Route path="/createWorker" component={Create} />
 				<Route path="/worker/:workerId" component={Profile} />
+				<Route path="/changeWorker/:workerId" component={Create} />
 			</Switch>
 		</div>
 	</div>
