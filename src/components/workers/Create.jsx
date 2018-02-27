@@ -99,28 +99,19 @@ class CreateWorker extends Component {
                     console.log(e);
                     return;
                 });
+        } else {
+            this.setState({ isLoading: false });
         }
     }
 
     // SO: need to think about lazy overwriting for worker data <- ToDO! 
     handleChange(event) {
-    //     const workerId = this.props.match.params.workerId;
-
-    //     if (workerId) {
-    //         const stateName = `old_${event.target.name}`;
-            
-    //         this.setState((prevState, props) => {
-    //             // `old_${event.target.name}` = prevState[event.target.name];
-    //             event.target.name = event.target.value;
-    //         })
-
-    //         console.log(`old state is: ${this.state.stateName} and new state is: ${this.state[event.target.name]}`);
-    //     } else {
-            this.setState({ [event.target.name]: event.target.value });
-        // }
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     handleSubmit(cb) {
+        const workerId = this.props.match.params.workerId;
+
         const workerData = {
             baseData: {
                 names: this.state.names,
@@ -145,13 +136,44 @@ class CreateWorker extends Component {
             payments: this.state.payments ? this.state.payments.split(',') : null,
         }
 
-        axios.post('http://localhost:3001/workers/createWorker', workerData)
-            .then(response => {
-                cb();
-            }).catch(e => {
-                console.log(e);
-                return;
-            });
+        if (workerId) {
+            const updatedFields = this.state;
+            updatedFields.position = updatedFields.position ? updatedFields.position.split(',') : null;
+            updatedFields.payments = updatedFields.payments ? updatedFields.payments.split(',') : null;
+            updatedFields.works = updatedFields.works ? updatedFields.works.split(',') : null;
+
+            axios.put('http://localhost:3001/workers/updateWorkerById', {
+                    workerId,
+                    updatedFields
+                }).then(response => {
+                    cb();
+                }).catch(e => {
+                    console.log(e);
+                    return;
+                });
+        } else {
+            axios.post('http://localhost:3001/workers/createWorker', workerData)
+                .then(response => {
+                    cb();
+                }).catch(e => {
+                    console.log(e);
+                    return;
+                });
+        }
+    }
+
+    whichFlowName = () => {
+        return (this.props.match.params.workerId ? 'Изменить' : 'Создать');
+    }
+
+    whichFlowPath = () => {
+        const workerId = this.props.match.params.workerId;
+
+        return (
+            workerId     
+                ? `/worker/${workerId}` 
+                : '/workers'
+            );
     }
 
     render() {
@@ -194,11 +216,11 @@ class CreateWorker extends Component {
                                     </ListGroupItem>
                                     <br />
                                     <CustomActionButton
-                                        name="Создать"
+                                        name={this.whichFlowName()}
                                         bsStyle="success"
                                         bsSize="small"
                                         onClick={this.handleSubmit}
-                                        to="/workers"
+                                        to={this.whichFlowPath()}
                                     />
                                 </ListGroup>
                             </Col>
