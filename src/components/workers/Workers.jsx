@@ -5,6 +5,7 @@ import { Table, } from "react-bootstrap";
 import axios from 'axios';
 
 import "./Workers.css";
+const apiConfig = require('../../configs/api.config');
 
 class Workers extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class Workers extends Component {
     }
 
     getData = () => {
-        axios.get('http://localhost:3001/workers/getAllWorkers')
+        axios.get(`${apiConfig.prod}workers/getAllWorkers`)
             .then(response => {
                 let workers = null;
 

@@ -7,6 +7,7 @@ import { BaseData, PassData, Payments, Shifts, CustomActionButton } from "./work
 import { WaitForResponse } from "../service";
 
 import './workerProfile/Profile.css';
+const apiConfig = require('../../configs/api.config');
 
 class Profile extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Profile extends Component {
     }
 
     getData = () => {
-        axios.post('http://localhost:3001/workers/getWorkerById',
+        axios.post(`${apiConfig.prod}workers/getWorkerById`,
             {
                 workerId: this.props.match.params.workerId,
             }
@@ -44,7 +45,7 @@ class Profile extends Component {
     }
 
     handleDeleteClick = (cb) => {
-        const route = `http://localhost:3001/workers/deleteWorkerById?workerId=${this.props.match.params.workerId}`;
+        const route = `${apiConfig.prod}workers/deleteWorkerById?workerId=${this.props.match.params.workerId}`;
         axios.delete(route).then(response => {
             console.log(`Success: ${response}`);
             cb();

@@ -5,6 +5,8 @@ import axios from "axios";
 import { CustomActionButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
 
+const apiConfig = require('../../configs/api.config');
+
 class CreateWorker extends Component {
     static BASE_DATA_INPUTS = [
         {
@@ -87,7 +89,7 @@ class CreateWorker extends Component {
         const workerId = this.props.match.params.workerId;
 
         if (workerId) {
-            axios.post('http://localhost:3001/workers/getRawWorkerById',
+            axios.post(`${apiConfig.prod}workers/getRawWorkerById`,
                 {
                     workerId,
                 }).then(response => {
@@ -142,7 +144,7 @@ class CreateWorker extends Component {
             updatedFields.payments = updatedFields.payments ? updatedFields.payments.split(',') : null;
             updatedFields.works = updatedFields.works ? updatedFields.works.split(',') : null;
 
-            axios.put('http://localhost:3001/workers/updateWorkerById', {
+            axios.put(`${apiConfig.prod}workers/updateWorkerById`, {
                     workerId,
                     updatedFields
                 }).then(response => {
@@ -152,7 +154,7 @@ class CreateWorker extends Component {
                     return;
                 });
         } else {
-            axios.post('http://localhost:3001/workers/createWorker', workerData)
+            axios.post(`${apiConfig.prod}workers/createWorker`, workerData)
                 .then(response => {
                     cb();
                 }).catch(e => {
