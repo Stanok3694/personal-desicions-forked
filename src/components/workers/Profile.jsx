@@ -5,9 +5,9 @@ import axios from "axios";
 
 import { BaseData, PassData, Payments, Shifts, CustomActionButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
+import apiConfigSwitcher from "../../configs/api.config";
 
 import './workerProfile/Profile.css';
-const apiConfig = require('../../configs/api.config');
 
 class Profile extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class Profile extends Component {
     }
 
     getData = () => {
-        axios.post(`${apiConfig.prod}workers/getWorkerById`,
+        axios.post(`${apiConfigSwitcher()}workers/getWorkerById`,
             {
                 workerId: this.props.match.params.workerId,
             }
@@ -45,7 +45,7 @@ class Profile extends Component {
     }
 
     handleDeleteClick = (cb) => {
-        const route = `${apiConfig.prod}workers/deleteWorkerById?workerId=${this.props.match.params.workerId}`;
+        const route = `${apiConfigSwitcher()}workers/deleteWorkerById?workerId=${this.props.match.params.workerId}`;
         axios.delete(route).then(response => {
             console.log(`Success: ${response}`);
             cb();

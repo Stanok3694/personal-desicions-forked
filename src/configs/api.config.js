@@ -1,6 +1,13 @@
 const apiConfig = {
     dev: "http://localhost:3001/",
-    prod: "https://personal-desicion-api.herokuapp.com/"
+    prod: "https://personal-desicion-api.herokuapp.com/",
+    // SO: current env
+    whichEnv: "dev",
+    // whichEnv: "prod",
 }
 
-module.exports = apiConfig;
+const apiConfigSwitcher = () => {
+    return apiConfig.whichEnv === 'dev' ? apiConfig.dev : apiConfig.prod;
+}
+
+export default apiConfigSwitcher;
