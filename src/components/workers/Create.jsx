@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { componentClass, FormControl, ListGroup, ListGroupItem, Grid, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
+import moment from "moment";
 
 import { CustomActionButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
@@ -92,8 +93,13 @@ class CreateWorker extends Component {
                 {
                     workerId,
                 }).then(response => {
+                    const workerData = response.data;
+                    // SO: can i format date more elegant?
+                    workerData.dateOfBirth = this.formatDateForUI(workerData.dateOfBirth);
+                    workerData.passportStartDate = this.formatDateForUI(workerData.passportStartDate);
+                    
                     this.setState({
-                        ...response.data,
+                        ...workerData,
                         isLoading: false,
                     });
                 }).catch(e => {
@@ -125,12 +131,12 @@ class CreateWorker extends Component {
             },
             passData: {
                 gender: this.state.gender,
-                dateOfBirth: this.state.dateOfBirth,
+                dateOfBirth: this.formatDate(this.state.dateOfBirth),
                 birthPlace: this.state.birthPlace,
                 serialNumber: this.state.serialNumber,
                 passportTable: this.state.passportTable,
                 codeOfPassportTable: this.state.codeOfPassportTable,
-                passportStartDate: this.state.passportStartDate,
+                passportStartDate: this.formatDate(this.state.passportStartDate),
                 address: this.state.address,
             },
             works: this.state.works ? this.state.works.split(',') : null,
@@ -139,6 +145,10 @@ class CreateWorker extends Component {
 
         if (workerId) {
             const updatedFields = this.state;
+            // SO: looks ugly <- ToDo!
+            updatedFields.dateOfBirth = updatedFields.dateOfBirth ? this.formatDate(updatedFields.dateOfBirth) : null;
+            updatedFields.passportStartDate = updatedFields.passportStartDate ? this.formatDate(updatedFields.passportStartDate) : null;
+            
             updatedFields.position = updatedFields.position ? updatedFields.position.split(',') : null;
             updatedFields.payments = updatedFields.payments ? updatedFields.payments.split(',') : null;
             updatedFields.works = updatedFields.works ? updatedFields.works.split(',') : null;
@@ -161,6 +171,14 @@ class CreateWorker extends Component {
                     return;
                 });
         }
+    }
+
+    formatDate = (unformattedDate) => {
+        return moment(unformattedDate, 'DD-MM-YYYY').format('L');
+    }
+
+    formatDateForUI = (unformattedDate) => {
+        return moment(unformattedDate).format("DD.MM.YYYY");
     }
 
     whichFlowName = () => {
