@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Tabs, Tab, ButtonToolbar, Button } from "react-bootstrap";
+import { Tabs, Tab, ButtonToolbar, } from "react-bootstrap";
 
 import axios from "axios";
 
-import { BaseData, PassData, Payments, Shifts, CustomActionButton } from "./workerProfile";
+import { BaseData, PassData, CustomActionButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
+import { FormatDate } from "../../utils";
 import apiConfigSwitcher from "../../configs/api.config";
 
 import './workerProfile/Profile.css';
@@ -30,8 +31,12 @@ class Profile extends Component {
                 workerId: this.props.match.params.workerId,
             }
         ).then(response => {
+            const worker = response.data;
+            worker.dateOfBirth = FormatDate(worker.dateOfBirth).forUI;
+            worker.passportStartDate = FormatDate(worker.passportStartDate).forUI;
+
             this.setState({
-                worker: response.data,
+                worker,
                 isLoading: false,
             });
         }).catch(e => {

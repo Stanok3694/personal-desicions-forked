@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { componentClass, FormControl, ListGroup, ListGroupItem, Grid, Col, Row, Button } from "react-bootstrap";
+import { FormControl, ListGroup, ListGroupItem, Grid, Col, Row, } from "react-bootstrap";
 import axios from "axios";
 
 import { CustomActionButton } from "./workerProfile";
