@@ -32,8 +32,8 @@ class Profile extends Component {
             }
         ).then(response => {
             const worker = response.data;
-            worker.dateOfBirth = FormatDate(worker.dateOfBirth).forUI;
-            worker.passportStartDate = FormatDate(worker.passportStartDate).forUI;
+            worker.passData = this.formatDateFieldHackForProfile(worker.passData, "Дата рождения");
+            worker.passData = this.formatDateFieldHackForProfile(worker.passData, "Дата выдачи");
 
             this.setState({
                 worker,
@@ -43,6 +43,17 @@ class Profile extends Component {
             console.log(e);
             return;
         });
+    }
+
+    // SO: shame on u for this weird thing <- the main reason of that is your desicion about using backend for pre-format ui data!
+    
+    formatDateFieldHackForProfile = (passData, key) => {
+        const target = passData.filter(e => e.key === key);
+        const targetIndex = passData.findIndex(e => e.key === key);
+
+        const formattedTarget = FormatDate(target[0].value).forUI;
+        passData[targetIndex].value = formattedTarget;
+        return passData;
     }
 
     handleSelect = (eventKey) => {
