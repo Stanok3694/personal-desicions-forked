@@ -6,7 +6,6 @@ import { CustomActionButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
 import apiConfigSwitcher from "../../configs/api.config";
 
-
 class CreateWorker extends Component {
     static BASE_DATA_INPUTS = [
         {
@@ -209,7 +208,7 @@ class CreateWorker extends Component {
                                         <div>
                                             <p>Примечания</p>
                                             <FormControl
-                                                componentClass="Textarea"
+                                                componentClass="textarea"
                                                 name="notes"
                                                 value={this.state.notes}
                                                 onChange={this.handleChange}
