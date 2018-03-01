@@ -4,9 +4,9 @@ import { Table, } from "react-bootstrap";
 
 import axios from 'axios';
 
-import "./Workers.css";
-
 import apiConfigSwitcher from "../../configs/api.config";
+
+import "./Workers.css";
 
 class Workers extends Component {
     constructor(props) {
