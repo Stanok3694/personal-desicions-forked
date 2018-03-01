@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { componentClass, FormControl, ListGroup, ListGroupItem, Grid, Col, Row, Button } from "react-bootstrap";
 import axios from "axios";
-import moment from "moment";
 
 import { CustomActionButton } from "./workerProfile";
 import { WaitForResponse } from "../service";
+import { FormatDate } from "../../utils";
 import apiConfigSwitcher from "../../configs/api.config";
 
 class CreateWorker extends Component {
@@ -95,8 +95,8 @@ class CreateWorker extends Component {
                 }).then(response => {
                     const workerData = response.data;
                     // SO: can i format date more elegant?
-                    workerData.dateOfBirth = this.formatDateForUI(workerData.dateOfBirth);
-                    workerData.passportStartDate = this.formatDateForUI(workerData.passportStartDate);
+                    workerData.dateOfBirth = FormatDate(workerData.dateOfBirth).forUI;
+                    workerData.passportStartDate = FormatDate(workerData.passportStartDate).forUI;
                     
                     this.setState({
                         ...workerData,
@@ -131,12 +131,12 @@ class CreateWorker extends Component {
             },
             passData: {
                 gender: this.state.gender,
-                dateOfBirth: this.formatDate(this.state.dateOfBirth),
+                dateOfBirth: FormatDate(this.state.dateOfBirth).forServices,
                 birthPlace: this.state.birthPlace,
                 serialNumber: this.state.serialNumber,
                 passportTable: this.state.passportTable,
                 codeOfPassportTable: this.state.codeOfPassportTable,
-                passportStartDate: this.formatDate(this.state.passportStartDate),
+                passportStartDate: FormatDate(this.state.passportStartDate).forServices,
                 address: this.state.address,
             },
             works: this.state.works ? this.state.works.split(',') : null,
@@ -146,8 +146,8 @@ class CreateWorker extends Component {
         if (workerId) {
             const updatedFields = this.state;
             // SO: looks ugly <- ToDo!
-            updatedFields.dateOfBirth = updatedFields.dateOfBirth ? this.formatDate(updatedFields.dateOfBirth) : null;
-            updatedFields.passportStartDate = updatedFields.passportStartDate ? this.formatDate(updatedFields.passportStartDate) : null;
+            updatedFields.dateOfBirth = updatedFields.dateOfBirth ? FormatDate(updatedFields.dateOfBirth).forServices : null;
+            updatedFields.passportStartDate = updatedFields.passportStartDate ? FormatDate(updatedFields.passportStartDate).forServices : null;
             
             updatedFields.position = updatedFields.position ? updatedFields.position.split(',') : null;
             updatedFields.payments = updatedFields.payments ? updatedFields.payments.split(',') : null;
@@ -171,14 +171,6 @@ class CreateWorker extends Component {
                     return;
                 });
         }
-    }
-
-    formatDate = (unformattedDate) => {
-        return moment(unformattedDate, 'DD-MM-YYYY').format('L');
-    }
-
-    formatDateForUI = (unformattedDate) => {
-        return moment(unformattedDate).format("DD.MM.YYYY");
     }
 
     whichFlowName = () => {
