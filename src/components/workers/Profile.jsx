@@ -51,7 +51,7 @@ class Profile extends Component {
         const target = passData.filter(e => e.key === key);
         const targetIndex = passData.findIndex(e => e.key === key);
 
-        const formattedTarget = FormatDate(target[0].value).forUI;
+        const formattedTarget = target[0].value ? FormatDate(target[0].value).forUI : null;
         passData[targetIndex].value = formattedTarget;
         return passData;
     }

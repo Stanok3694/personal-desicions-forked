@@ -94,9 +94,9 @@ class CreateWorker extends Component {
                     workerId,
                 }).then(response => {
                     const workerData = response.data;
-                    // SO: can i format date more elegant?
-                    workerData.dateOfBirth = FormatDate(workerData.dateOfBirth).forUI;
-                    workerData.passportStartDate = FormatDate(workerData.passportStartDate).forUI;
+                    
+                    workerData.dateOfBirth = workerData.dateOfBirth ? FormatDate(workerData.dateOfBirth).forUI : null;
+                    workerData.passportStartDate = workerData.passportStartDate ? FormatDate(workerData.passportStartDate).forUI : null;
                     
                     this.setState({
                         ...workerData,
@@ -131,12 +131,12 @@ class CreateWorker extends Component {
             },
             passData: {
                 gender: this.state.gender,
-                dateOfBirth: FormatDate(this.state.dateOfBirth).forServices,
+                dateOfBirth: this.state.dateOfBirth ? FormatDate(this.state.dateOfBirth).forServices : null,
                 birthPlace: this.state.birthPlace,
                 serialNumber: this.state.serialNumber,
                 passportTable: this.state.passportTable,
                 codeOfPassportTable: this.state.codeOfPassportTable,
-                passportStartDate: FormatDate(this.state.passportStartDate).forServices,
+                passportStartDate: this.state.passportStartDate ? FormatDate(this.state.passportStartDate).forServices : null,
                 address: this.state.address,
             },
             works: this.state.works ? this.state.works.split(',') : null,
