@@ -5,6 +5,7 @@ import { Table, } from "react-bootstrap";
 import axios from 'axios';
 
 import apiConfigSwitcher from "../../configs/api.config";
+import { SortArrOfObj, } from "../../utils";
 
 import "./Workers.css";
 
@@ -46,7 +47,7 @@ class Workers extends Component {
         if (!postionArray) {
             return;
         }
-        
+
         const strFromArr = postionArray.toString();
         const commaIdx = strFromArr.indexOf(',');
         const withComma = strFromArr.slice(0, commaIdx + 1);
@@ -65,7 +66,7 @@ class Workers extends Component {
         } else if (typeof this.state.workers !== 'string') {
             return (
                 <div>
-                    <h1 className = "WorkersHeader">Рабочие</h1>
+                    <h1 className="WorkersHeader">Рабочие</h1>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -81,7 +82,7 @@ class Workers extends Component {
                         </thead>
                         <tbody>
                             {
-                                this.state.workers.map((w, index) => {
+                                SortArrOfObj(this.state.workers).map((w, index) => {
                                     const route = `/worker/${w.id}`;
                                     // SO: move into separate file?
                                     const specialty = this.makeStringField(w.position);

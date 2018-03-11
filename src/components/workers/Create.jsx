@@ -10,6 +10,10 @@ import apiConfigSwitcher from "../../configs/api.config";
 class CreateWorker extends Component {
     static BASE_DATA_INPUTS = [
         {
+            key: "order",
+            value: "Номер анкеты"
+        },
+        {
             key: "names",
             value: "ФИО"
         },
@@ -121,6 +125,7 @@ class CreateWorker extends Component {
 
         const workerData = {
             baseData: {
+                order: this.state.order ? this.state.order : null,
                 names: this.state.names,
                 age: this.state.age,
                 district: this.state.district,
