@@ -69,6 +69,7 @@ class Workers extends Component {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
+                                <th>{'Номер'}</th>
                                 <th>{'ФИО'}</th>
                                 <th>{'Возраст'}</th>
                                 <th>{'Район'}</th>
@@ -88,6 +89,7 @@ class Workers extends Component {
 
                                     return (
                                         <tr key={index}>
+                                            <td>{w.order}</td>
                                             <td>
                                                 <Link to={route}>
                                                     {w.names}
