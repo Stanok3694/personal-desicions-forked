@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, } from 'react-router-dom'
-
-import App from './App';
+import { ScreensRoot } from "./screens";;
 
 ReactDOM.render(
     <BrowserRouter>
-        <div>
-            <App />
-        </div>
+            <ScreensRoot />
     </BrowserRouter>,
     document.getElementById('root')
 );

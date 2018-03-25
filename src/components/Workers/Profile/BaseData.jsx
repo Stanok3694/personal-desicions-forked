@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, ListGroup, ListGroupItem, Grid, Col, Row } from "react-bootstrap";
 
-import "../workerProfile/Profile.css";
+import "./Profile.css";
 
 const BaseData = (props) => {
     return (

@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { Button } from "react-bootstrap";
 
-const CusomActionButton = ({...props, history }) => {
+const CusomNavigationButton = ({...props, history }) => {
     return (
         <Button
             onClick={
@@ -21,4 +21,4 @@ const CusomActionButton = ({...props, history }) => {
     );
 }
 
-export default withRouter(CusomActionButton);
+export default withRouter(CusomNavigationButton);

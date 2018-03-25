@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { FormControl, ListGroup, ListGroupItem, Grid, Col, Row, } from "react-bootstrap";
 import axios from "axios";
 
-import { CustomActionButton } from "./workerProfile";
-import { WaitForResponse } from "../service";
-import { FormatDate } from "../../utils";
-import apiConfigSwitcher from "../../configs/api.config";
+import { CustomNavigationButton, WaitForResponse, } from "../../UI";
+import { FormatDate } from "../../../utils";
+import apiConfigSwitcher from "../../../configs/api.config";
 
-class CreateWorker extends Component {
+class WorkerForm extends Component {
     static BASE_DATA_INPUTS = [
         {
             key: "order",
@@ -203,7 +202,7 @@ class CreateWorker extends Component {
                             <Col md={6}>
                                 <ListGroup>
                                     {
-                                        CreateWorker.BASE_DATA_INPUTS.map((i, index) => {
+                                        WorkerForm.BASE_DATA_INPUTS.map((i, index) => {
                                             return (
                                                 <ListGroupItem key={index}>
                                                     <div>
@@ -231,7 +230,7 @@ class CreateWorker extends Component {
                                         </div>
                                     </ListGroupItem>
                                     <br />
-                                    <CustomActionButton
+                                    <CustomNavigationButton
                                         name={this.whichFlowName()}
                                         bsStyle="success"
                                         bsSize="small"
@@ -243,7 +242,7 @@ class CreateWorker extends Component {
                             <Col md={6}>
                                 <ListGroup>
                                     {
-                                        CreateWorker.PASS_DATA_INPUTS.map((i, index) => {
+                                        WorkerForm.PASS_DATA_INPUTS.map((i, index) => {
                                             return (
                                                 <ListGroupItem key={index}>
                                                     <div>
@@ -269,4 +268,4 @@ class CreateWorker extends Component {
     }
 }
 
-export default CreateWorker;
+export default WorkerForm;
