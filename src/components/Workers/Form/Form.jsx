@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { CustomNavigationButton, WaitForResponse, } from "../../UI";
 import { FormatDate } from "../../../utils";
-import apiConfigSwitcher from "../../../configs/api.config";
+import { ApiRoutes } from "../../../configs";
 
 class WorkerForm extends Component {
     static BASE_DATA_INPUTS = [
@@ -92,7 +92,7 @@ class WorkerForm extends Component {
         const workerId = this.props.match.params.workerId;
 
         if (workerId) {
-            axios.post(`${apiConfigSwitcher()}workers/getRawWorkerById`,
+            axios.post(ApiRoutes.getRawWorkerById,
                 {
                     workerId,
                 }).then(response => {
@@ -157,7 +157,7 @@ class WorkerForm extends Component {
             updatedFields.payments = updatedFields.payments ? updatedFields.payments.split(',') : null;
             updatedFields.works = updatedFields.works ? updatedFields.works.split(',') : null;
 
-            axios.put(`${apiConfigSwitcher()}workers/updateWorkerById`, {
+            axios.put(ApiRoutes.updateWorkerById, {
                     workerId,
                     updatedFields
                 }).then(response => {
@@ -167,7 +167,7 @@ class WorkerForm extends Component {
                     return;
                 });
         } else {
-            axios.post(`${apiConfigSwitcher()}workers/createWorker`, workerData)
+            axios.post(ApiRoutes.createWorker, workerData)
                 .then(response => {
                     cb();
                 }).catch(e => {

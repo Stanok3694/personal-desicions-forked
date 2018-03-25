@@ -6,7 +6,7 @@ import axios from "axios";
 import { BaseData, PassData, } from "./";
 import { WaitForResponse, CustomNavigationButton } from "../../UI";
 import { FormatDate } from "../../../utils";
-import apiConfigSwitcher from "../../../configs/api.config";
+import {ApiRoutes } from "../../../configs";
 
 import './Profile.css';
 
@@ -26,7 +26,7 @@ class Profile extends Component {
     }
 
     getData = () => {
-        axios.post(`${apiConfigSwitcher()}workers/getWorkerById`,
+        axios.post(ApiRoutes.getWorkerById,
             {
                 workerId: this.props.match.params.workerId,
             }
@@ -61,7 +61,7 @@ class Profile extends Component {
     }
 
     handleDeleteClick = (cb) => {
-        const route = `${apiConfigSwitcher()}workers/deleteWorkerById?workerId=${this.props.match.params.workerId}`;
+        const route = `${ApiRoutes.deleteWorkerById}${this.props.match.params.workerId}`;
         axios.delete(route).then(response => {
             console.log(`Success: ${response}`);
             cb();

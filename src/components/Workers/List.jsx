@@ -12,36 +12,7 @@ import "./Workers.css";
 class WorkersList extends Component {
     constructor(props) {
         super(props);
-
-        // this.state = {
-        //     isLoading: true,
-        //     loadingString: 'Loading...',
-        //     workers: [],
-        // };
     }
-
-    // componentDidMount() {
-    //     // this.getData();
-    // }
-
-    // getData = () => {
-    //     axios.get(`${apiConfigSwitcher()}workers/getAllWorkers`)
-    //         .then(response => {
-    //             let workers = null;
-
-    //             if (typeof response.data === "string") {
-    //                 workers = response.data;
-    //             } else {
-    //                 workers = [...response.data];
-    //             }
-
-    //             this.setState({ workers, isLoading: false, })
-    //         })
-    //         .catch(e => {
-    //             console.log(e);
-    //             return;
-    //         });
-    // }
 
     makeStringField = (postionArray) => {
         if (!postionArray) {
