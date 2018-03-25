@@ -2,8 +2,9 @@ import React from 'react';
 import { Link, Route, Switch } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
 
-import { WorkersList, WorkersProfile, WorkersForm } from '../components/Workers';
+import {WorkersProfile, WorkersForm } from '../components/Workers';
 import { Dashboard } from '../components/Dashboard';
+import { ScreensWorkers } from "./";
 
 const ScreensRoot = () => (
 	<div>
@@ -29,7 +30,7 @@ const ScreensRoot = () => (
 		<div>
 			<Switch>
 				<Route exact path="/" component={Dashboard} />
-				<Route path="/workers" component={WorkersList} />
+				<Route path="/workers" component={ScreensWorkers} />
 				<Route path="/createWorker" component={WorkersForm} />
 				<Route path="/worker/:workerId" component={WorkersProfile} />
 				<Route path="/changeWorker/:workerId" component={WorkersForm} />

@@ -10,4 +10,8 @@ const apiConfigSwitcher = () => {
     return apiConfig.whichEnv === 'dev' ? apiConfig.dev : apiConfig.prod;
 }
 
-export default apiConfigSwitcher;
+const ApiRoutes = {
+    getAllWorkers: `${apiConfigSwitcher()}workers/getAllWorkers`,
+}
+
+export default ApiRoutes;

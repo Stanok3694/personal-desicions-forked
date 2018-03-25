@@ -9,39 +9,39 @@ import { SortArrOfObj, } from "../../utils";
 
 import "./Workers.css";
 
-class Workers extends Component {
+class WorkersList extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isLoading: true,
-            loadingString: 'Loading...',
-            workers: [],
-        };
+        // this.state = {
+        //     isLoading: true,
+        //     loadingString: 'Loading...',
+        //     workers: [],
+        // };
     }
 
-    componentDidMount() {
-        this.getData();
-    }
+    // componentDidMount() {
+    //     // this.getData();
+    // }
 
-    getData = () => {
-        axios.get(`${apiConfigSwitcher()}workers/getAllWorkers`)
-            .then(response => {
-                let workers = null;
+    // getData = () => {
+    //     axios.get(`${apiConfigSwitcher()}workers/getAllWorkers`)
+    //         .then(response => {
+    //             let workers = null;
 
-                if (typeof response.data === "string") {
-                    workers = response.data;
-                } else {
-                    workers = [...response.data];
-                }
+    //             if (typeof response.data === "string") {
+    //                 workers = response.data;
+    //             } else {
+    //                 workers = [...response.data];
+    //             }
 
-                this.setState({ workers, isLoading: false, })
-            })
-            .catch(e => {
-                console.log(e);
-                return;
-            });
-    }
+    //             this.setState({ workers, isLoading: false, })
+    //         })
+    //         .catch(e => {
+    //             console.log(e);
+    //             return;
+    //         });
+    // }
 
     makeStringField = (postionArray) => {
         if (!postionArray) {
@@ -57,13 +57,13 @@ class Workers extends Component {
     }
 
     render() {
-        if (this.state.isLoading) {
+        if (this.props.isLoading) {
             return (
                 <div>
-                    <p>{this.state.loadingString}</p>
+                    <p>{this.props.loadingString}</p>
                 </div>
             )
-        } else if (typeof this.state.workers !== 'string') {
+        } else if (typeof this.props.workers !== 'string') {
             return (
                 <div>
                     <h1 className="WorkersHeader">Рабочие</h1>
@@ -82,7 +82,7 @@ class Workers extends Component {
                         </thead>
                         <tbody>
                             {
-                                SortArrOfObj(this.state.workers).map((w, index) => {
+                                SortArrOfObj(this.props.workers).map((w, index) => {
                                     const route = `/worker/${w.id}`;
                                     // SO: move into separate file?
                                     const specialty = this.makeStringField(w.position);
@@ -113,11 +113,11 @@ class Workers extends Component {
         } else {
             return (
                 <div>
-                    <p>{this.state.workers}</p>
+                    <p>{this.props.workers}</p>
                 </div>
             );
         }
     }
 }
 
-export default Workers;
+export default WorkersList;
