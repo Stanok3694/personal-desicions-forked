@@ -70,7 +70,15 @@ class WorkerForm extends Component {
         {
             key: "address",
             value: "Адрес регистрации"
-        }
+        },
+        {
+            key: "typeOfDoc",
+            value: "Тип документов"
+        },
+        {
+            key: "citizenship",
+            value: "Гражданство"
+        },
     ];
 
     constructor(props) {
@@ -142,9 +150,11 @@ class WorkerForm extends Component {
                 codeOfPassportTable: this.state.codeOfPassportTable,
                 passportStartDate: this.state.passportStartDate ? FormatDate(this.state.passportStartDate).forServices : null,
                 address: this.state.address,
+                typeOfDoc: this.state.typeOfDoc,
+                citizenship: this.state.citizenship,
             },
-            works: this.state.works ? this.state.works.split(',') : null,
-            payments: this.state.payments ? this.state.payments.split(',') : null,
+            // works: this.state.works ? this.state.works.split(',') : null,
+            // payments: this.state.payments ? this.state.payments.split(',') : null,
         }
 
         if (workerId) {
@@ -154,8 +164,8 @@ class WorkerForm extends Component {
             updatedFields.passportStartDate = updatedFields.passportStartDate ? FormatDate(updatedFields.passportStartDate).forServices : null;
             
             updatedFields.position = updatedFields.position ? updatedFields.position.split(',') : null;
-            updatedFields.payments = updatedFields.payments ? updatedFields.payments.split(',') : null;
-            updatedFields.works = updatedFields.works ? updatedFields.works.split(',') : null;
+            // updatedFields.payments = updatedFields.payments ? updatedFields.payments.split(',') : null;
+            // updatedFields.works = updatedFields.works ? updatedFields.works.split(',') : null;
 
             axios.put(ApiRoutes.updateWorkerById, {
                     workerId,
